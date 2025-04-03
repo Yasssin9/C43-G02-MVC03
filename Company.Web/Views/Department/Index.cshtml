@@ -1,9 +1,13 @@
-﻿@model IEnumerable<Department>
+﻿@model IEnumerable<DepartmentDto>
 @{
     ViewData["Title"] = "Index";
 }
 
 <a asp-controller="Department" asp-action="Create" class="btn btn-primary">Create New Department</a>
+
+@* <div class="mt-5 alert alert-danger"> *@
+@*     <h3>@TempData["TextTempMessage"]</h3> *@
+@* </div> *@
 
 @if (Model.Count()>0)
 {

@@ -1,6 +1,7 @@
 ﻿using Company.Data.Models;
 using Company.Repository.Interface;
-using Company.Service.Interfaces;
+using Company.Service.Interfaces.DepartmentServices;
+using Company.Service.Interfaces.DepartmentServices.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Web.Controllers
@@ -19,6 +20,8 @@ namespace Company.Web.Controllers
         {
             var departments= _departmentServices.GetAll();
 
+            //TempData.Keep("TextTempMessage");
+            
             return View(departments);
         }
 
@@ -29,7 +32,7 @@ namespace Company.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Department department)
+        public IActionResult Create(DepartmentDto department)
         {
             try
             {
@@ -37,6 +40,8 @@ namespace Company.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     _departmentServices.Add(department);
+
+                    TempData["TextTempMessage"] = "Hello From Employee Index (TempData)";
 
                     return RedirectToAction("Index");
                 }
@@ -65,16 +70,24 @@ namespace Company.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Update(int? id)
+        public IActionResult Edit(int? id)
         {
+            if (id == null)
+                return RedirectToAction("NotFoundPage", "Home");
 
-            return Details(id,"Update");
+            var department = _departmentServices.GetById(id.Value);
+
+            if (department == null)
+                return RedirectToAction("NotFoundPage", "Home");
+
+            return View(department);
         }
 
+
         [HttpPost]
-        public IActionResult Update(int? id,Department department)
+        public IActionResult Edit(int? id, DepartmentDto department)
         {
-            if(department.Id != id.Value)
+            if(department.Id !=  id.Value)
                 return RedirectToAction("NotFoundPage", null, "Home");
 
 

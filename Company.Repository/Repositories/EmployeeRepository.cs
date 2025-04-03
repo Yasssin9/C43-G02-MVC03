@@ -23,9 +23,8 @@ namespace Company.Repository.Repositories
             throw new NotImplementedException();
         }
 
-        public Employee GetEmployeeByName(string name)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Employee> GetEmployeeByName(string name)
+        => _context.Employee.Where(x => x.Name.Trim().ToLower().Contains(name.Trim().ToLower())).ToList(); 
+
     }
 }

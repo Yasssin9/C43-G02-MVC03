@@ -14,22 +14,25 @@ namespace Company.Repository.Repositories
         private readonly CompanyDbContext _context;
 
         public GenaricRepository(CompanyDbContext context)
-        {
-            _context = context;
-        }
+        => _context = context;
+        
 
         public void Add(T Entity)
-        { 
-            _context.Add(Entity);
-            _context.SaveChanges();
-        }
+        => _context.Set<T>().Add(Entity);
+
 
 
         public void Delete(T Entity)
         {
-            _context.Remove(Entity);
-            _context.SaveChanges();
+            var DeleteEntity = _context.Set<T>().Find(Entity.Id);
+            if (DeleteEntity is not null)
+            {
+                _context.Remove(DeleteEntity);
+                _context.SaveChanges();
+            }
+
         }
+       
 
         
 
@@ -40,10 +43,8 @@ namespace Company.Repository.Repositories
         => _context.Set<T>().Find(id);
 
         public void Update(T Entity)
-        {
-            _context.Set<T>().Update(Entity);
-            _context.SaveChanges();
-        }
+        => _context.Set<T>().Update(Entity);
+
 
     }
 }
