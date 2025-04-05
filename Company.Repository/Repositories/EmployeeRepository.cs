@@ -18,13 +18,20 @@ namespace Company.Repository.Repositories
             _context = context;
         }
 
+        public IEnumerable<Employee> GetEmployeeByName(string name)
+        => _context.Employee.Where(x => 
+        x.Name.Trim().ToLower().Contains(name.Trim().ToLower()) ||
+        x.Email.Trim().ToLower().Contains(name.Trim().ToLower()) ||
+        x.PhoneNumber.Trim().ToLower().Contains(name.Trim().ToLower())
+        ).ToList();
+
+
         public IEnumerable<Employee> GetEmployeeByAddress(string address)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Employee> GetEmployeeByName(string name)
-        => _context.Employee.Where(x => x.Name.Trim().ToLower().Contains(name.Trim().ToLower())).ToList(); 
+        
 
     }
 }

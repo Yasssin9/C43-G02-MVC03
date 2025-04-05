@@ -126,7 +126,7 @@ namespace Company.Service.Services.EmployeeServices
 
         public void Update(EmployeeDto Employee)
         {
-            //_unitOfWork.Complete();
+            _unitOfWork.Complete();
         }
 
         public IEnumerable<EmployeeDto> GetEmployeeByName(string name)

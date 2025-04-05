@@ -13,12 +13,12 @@ namespace Company.Service.Helper
         {
             // 1. Get FolderPath
 
-            //var folderPath = @"C:\\Users\\Ahmed Yassin\\source\\repos\\Company.Web\\Company.Web\\wwwroot\\File\\Images\\";
+            var folderPath = @"C:\\Users\\Ahmed Yassin\\source\\repos\\Company.Web\\Company.Web\\wwwroot\\File\\Images\\";
 
-            var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//Files", folderName);
+            //var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//Files", folderName);
 
             // 2. Get File Name
-            var fileName=$"{Guid.NewGuid()}_{file.FileName}";
+            var fileName=$"{Guid.NewGuid()}-{file.FileName}";
 
             // 3. Combine FolderPath + FilePath
             var filePath=Path.Combine(folderPath, fileName);

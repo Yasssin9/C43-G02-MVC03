@@ -54,7 +54,7 @@
                 <tr>
                     <td>@Employee.Name</td>
                     <td>
-                        <img src="~/Files/Images/@Employee.ImageUrl" height="40" width="40" alt=""/>
+                        <img src="~/File/Images/@Employee.ImageUrl" height="40" width="40" alt=""/>
                     </td>
                     <td>@Employee.Age</td>
                     <td>@Employee.Address</td>
@@ -62,8 +62,18 @@
                     <td>@Html.DisplayFor(M => Employee.Email)</td>
                     <td>@Employee.PhoneNumber</td>
                     <td>@Employee.HiringDate</td>
-                    <partial model="@Employee.Id" name="_ButtonsPartial" />
-                </tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@Employee.Id" class="btn btn-info btn-sm">Details</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@Employee.Id" class="btn btn-warning btn-sm">Edit</a>
+                    </td>
+                    <td>
+                        <form asp-action="Delete" asp-route-id="@Employee.Id" method="post" style="display:inline">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>              
             }
         </tbody>
     </table>

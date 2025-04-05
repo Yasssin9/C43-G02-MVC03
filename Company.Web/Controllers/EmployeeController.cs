@@ -4,6 +4,7 @@ using Company.Service.Interfaces.DepartmentServices;
 using Company.Service.Interfaces.IEmployeeServices;
 using Company.Service.Interfaces.IEmployeeServices.Dto;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Company.Web.Controllers
 {
@@ -25,25 +26,24 @@ namespace Company.Web.Controllers
 
             //ViewData["TextMessage"] = "Hello From Employee Index (ViewData)";
 
+            IEnumerable<EmployeeDto> employee = new List<EmployeeDto>();
 
             if (string.IsNullOrEmpty(searchIp))
-            {
-                var employee = _employeeServices.GetAll();
-                return View(employee);
-            }
+                employee = _employeeServices.GetAll();
             else             
-            {
-            var employees= _employeeServices.GetEmployeeByName(searchIp);
-                return View (employees);
-            }
+                employee= _employeeServices.GetEmployeeByName(searchIp);
+                return View (employee);
+
            
         }
         [HttpGet]
-        public IActionResult Create() 
-        {           
-            ViewBag.departments = _DepartmentServices.GetAll();
+        public IActionResult Create()
+        {
+            var departments = _DepartmentServices.GetAll();
+            ViewBag.Departments = departments;
             return View();
         }
+
 
         [HttpPost]
         public IActionResult Create(EmployeeDto employee) 

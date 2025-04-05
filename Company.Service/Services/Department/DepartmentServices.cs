@@ -68,11 +68,11 @@ namespace Company.Service.Services
 
         public void Update(DepartmentDto departmentDto)
         {
-            //var department = _mapper.Map<Department>(departmentDto);
+            var department = _mapper.Map<Department>(departmentDto);
 
-            //_unitOfWork.Department.Update(department);
+            _unitOfWork.Department.Update(department);
 
-            //_unitOfWork.Complete();
+            _unitOfWork.Complete();
         }
     }
 }
