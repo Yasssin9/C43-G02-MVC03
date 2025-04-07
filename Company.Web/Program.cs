@@ -1,4 +1,5 @@
 using Company.Data.Contexts;
+using Company.Data.Models;
 using Company.Repository.Interface;
 using Company.Repository.Repositories;
 using Company.Service.Interfaces.DepartmentServices;
@@ -7,8 +8,11 @@ using Company.Service.Mapping.DepartmentMapping;
 using Company.Service.Mapping.EmployeeMapping;
 using Company.Service.Services;
 using Company.Service.Services.EmployeeServices;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Update;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Company.Web
 {
@@ -33,6 +37,32 @@ namespace Company.Web
             builder.Services.AddAutoMapper(x => x.AddProfile(new EmployeeProfile()));
             builder.Services.AddAutoMapper(x => x.AddProfile(new DepartmentProfile()));
             
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.Password.RequiredUniqueChars = 2;
+                config.Password.RequireDigit = true;
+                config.Password.RequireLowercase = true;
+                config.Password.RequireUppercase = true;
+                config.Password.RequiredLength = 6;
+                config.Password.RequireNonAlphanumeric = true;
+                config.User.RequireUniqueEmail = true;
+                config.Lockout.MaxFailedAccessAttempts = 3;
+                config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(1);
+            }).AddEntityFrameworkStores<CompanyDbContext>()
+            .AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.SlidingExpiration = true;
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.Cookie.Name= "YCookie";
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+            });
 
             var app = builder.Build();
 
@@ -51,9 +81,11 @@ namespace Company.Web
 
             app.UseAuthorization();
 
+            app.UseAuthentication();
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=SignUp}/{id?}");
 
             app.Run();
         }
