@@ -13,7 +13,7 @@ namespace Company.Service.Helper
         {
             // 1. Get FolderPath
 
-            var folderPath = @"C:\\Users\\Ahmed Yassin\\source\\repos\\Company.Web\\Company.Web\\wwwroot\\File\\Images\\";
+            var folderPath = @"C:\Users\ahmed\Source\Repos\C43-G02-MVC03\Company.Web\wwwroot\File\Images\";
 
             //var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//Files", folderName);
 

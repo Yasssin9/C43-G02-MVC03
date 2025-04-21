@@ -22,25 +22,22 @@ namespace Company.Web.Controllers
 
         public IActionResult Index(string searchIp)
         {
-            //ViewBag.Message = "Hello From Employee Index (ViewBag)";
-
-            //ViewData["TextMessage"] = "Hello From Employee Index (ViewData)";
-
-            IEnumerable<EmployeeDto> employee = new List<EmployeeDto>();
+            IEnumerable<EmployeeDto> employee;
 
             if (string.IsNullOrEmpty(searchIp))
                 employee = _employeeServices.GetAll();
-            else             
-                employee= _employeeServices.GetEmployeeByName(searchIp);
-                return View (employee);
+            else
+                employee = _employeeServices.GetEmployeeByName(searchIp);
 
-           
+            return View(employee);
         }
+
+
         [HttpGet]
         public IActionResult Create()
         {
-            var departments = _DepartmentServices.GetAll();
-            ViewBag.Departments = departments;
+            //var departments = _DepartmentServices.GetAll();
+            ViewBag.Departments = _DepartmentServices.GetAll();
             return View();
         }
 
