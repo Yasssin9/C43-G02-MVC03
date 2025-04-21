@@ -2,6 +2,7 @@
 using Company.Data.Models;
 using Company.Repository.Interface;
 using Company.Service.Helper;
+using Company.Service.Interfaces.DepartmentServices.Dto;
 using Company.Service.Interfaces.IEmployeeServices;
 using Company.Service.Interfaces.IEmployeeServices.Dto;
 using System;
@@ -66,7 +67,7 @@ namespace Company.Service.Services.EmployeeServices
             Employee employee = _mapper.Map<Employee>(employeeDto);
 
 
-            _unitOfWork.Employee.Add(employee);
+            _unitOfWork.Employee.Delete(employee);
             _unitOfWork.Complete();
         }
 
@@ -97,11 +98,11 @@ namespace Company.Service.Services.EmployeeServices
 
         public EmployeeDto GetById(int? id)
         {
-            if (id == null)
+            if (id is null)
                 return null;
             var employee=_unitOfWork.Employee.GetById(id.Value);
-            if (employee is null)
-                return null;
+            //if (employee is null)
+            //    return null;
 
             //EmployeeDto employeeDto = new EmployeeDto
             //{
@@ -124,8 +125,12 @@ namespace Company.Service.Services.EmployeeServices
             return employeeDto;
         }
 
-        public void Update(EmployeeDto Employee)
+        public void Update(EmployeeDto Employeedto)
         {
+            var employee = _mapper.Map<Employee>(Employeedto);
+
+            _unitOfWork.Employee.Update(employee);
+
             _unitOfWork.Complete();
         }
 

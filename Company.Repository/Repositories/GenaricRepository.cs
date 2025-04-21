@@ -18,7 +18,10 @@ namespace Company.Repository.Repositories
         
 
         public void Add(T Entity)
-        => _context.Set<T>().Add(Entity);
+        {
+            _context.Set<T>().Add(Entity);
+        }
+    
 
 
 

@@ -15,7 +15,7 @@ namespace Company.Service.Helper
 
             var folderPath = @"C:\Users\ahmed\Source\Repos\C43-G02-MVC03\Company.Web\wwwroot\File\Images\";
 
-            //var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//Files", folderName);
+            // var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files", folderName);
 
             // 2. Get File Name
             var fileName=$"{Guid.NewGuid()}-{file.FileName}";
