@@ -6,11 +6,13 @@ using Company.Service.Interfaces.IEmployeeServices;
 using Company.Service.Interfaces.IEmployeeServices.Dto;
 using Company.Service.Services;
 using Company.Service.Services.EmployeeServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.Web.Controllers
 {
+    
     public class EmployeeController : Controller
     {
         private readonly IEmployeeServices _employeeServices;
